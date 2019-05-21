@@ -15,7 +15,7 @@ if __name__ == "__main__":
 
     # Get class info
     # load the class label
-    file_name = '../places365/categories_places365.txt'
+    file_name = 'categories_places365.txt'
     classes = list()
 
     # Get class names
