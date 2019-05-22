@@ -83,11 +83,6 @@ if __name__ == "__main__":
             exec_net.start_async(request_id=cur_request_id, inputs={input_blob: in_frame})
 
         if exec_net.requests[cur_request_id].wait(-1) == 0:
-            inf_end = time.time()
-            inf_time = inf_end - inf_start
-            inf_time_message = "Inference time: N\A for async mode" if is_async_mode else \
-                "Inference time: {:.3f} ms".format(inf_time * 1000)
-            log.info("Inference time: {:.3f} ms".format(inf_time * 1000))
 
             # Parse detection results of the current request
             out = exec_net.requests[cur_request_id].outputs
