@@ -60,6 +60,9 @@ if __name__ == "__main__":
 
     window_frame = cv2.namedWindow("frame", cv2.WINDOW_NORMAL)
 
+    current_room_type = ''
+    counter = time.time()
+
     while cap.isOpened():
         if is_async_mode:
             ret, next_frame = cap.read()
@@ -94,6 +97,7 @@ if __name__ == "__main__":
             sorted_results = sorted(results, key=lambda i: i[1], reverse=True)[:5]
 
             message = '{:.3f} -> {}'.format(sorted_results[0][1], sorted_results[0][0])
+            current_room_type = sorted_results[0][0]  # Room type with highest confidence
 
             cv2.putText(frame, message, (50, 50), cv2.FONT_HERSHEY_COMPLEX, fontScale=1, color=(0, 255, 0))
             cv2.imshow("frame", frame)
@@ -108,6 +112,10 @@ if __name__ == "__main__":
             break
         if 9 == key:
             is_async_mode = not is_async_mode
+
+        if (time.time() - counter) > 1:  # Wait for 1s
+            os.system('aplay wav_files/{}.wav'.format(current_room_type))  # assuming file in current directory
+            counter = time.time()
 
     del net
     del exec_net
