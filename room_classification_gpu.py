@@ -43,7 +43,9 @@ if __name__ == "__main__":
     window_frame = cv2.namedWindow('frame', cv2.WINDOW_NORMAL)
 
     while cap.isOpened():
-        ret, frame = cap.read()
+        for i in range(0, 10):
+            ret, frame = cap.read()
+
         transformed_image = transformer.preprocess('data', frame)
 
         # Feed transformed frame through network
