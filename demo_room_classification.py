@@ -54,7 +54,6 @@ if __name__ == "__main__":
     cur_request_id = 0
     next_request_id = 1
 
-    is_async_mode = False
     render_time = 0
     ret, frame = cap.read()
 
@@ -64,54 +63,32 @@ if __name__ == "__main__":
     counter = time.time()
 
     while cap.isOpened():
-        if is_async_mode:
-            ret, next_frame = cap.read()
-        else:
-            ret, frame = cap.read()
-        if not ret:
-            break
+        ret, frame = cap.read()
 
-        inf_start = time.time()
-        if is_async_mode:
-            in_frame = cv2.resize(next_frame, (w, h), interpolation=cv2.INTER_AREA)
-            cv2.imshow("frame", in_frame)
-            in_frame = in_frame.transpose((2, 0, 1))  # Change data layout from HWC to CHW
-            in_frame = in_frame.reshape((n, c, h, w))
-            exec_net.start_async(request_id=next_request_id, inputs={input_blob: in_frame})
-        else:
-            in_frame = cv2.resize(frame, (w, h), interpolation=cv2.INTER_AREA)
-            cv2.imshow("frame", in_frame)
-            in_frame = in_frame.transpose((2, 0, 1))  # Change data layout from HWC to CHW
-            in_frame = in_frame.reshape((n, c, h, w))
-            exec_net.start_async(request_id=cur_request_id, inputs={input_blob: in_frame})
+        in_frame = cv2.resize(frame, (w, h), interpolation=cv2.INTER_AREA)
+        cv2.imshow("frame", in_frame)
+        in_frame = in_frame.transpose((2, 0, 1))  # Change data layout from HWC to CHW
+        in_frame = in_frame.reshape((n, c, h, w))
+        exec_net.infer(inputs={input_blob: in_frame})
 
-        if exec_net.requests[cur_request_id].wait(-1) == 0:
+        # Parse detection results of the current request
+        out = exec_net.requests[0].outputs
 
-            # Parse detection results of the current request
-            out = exec_net.requests[cur_request_id].outputs
+        # zip results and classes, end up with sortable list of tuples
+        results = list(zip(classes, out['prob'][0]))
 
-            # zip results and classes, end up with sortable list of tuples
-            results = list(zip(classes, out['prob'][0]))
+        # sort results and get top 5 based on probability (i.e. i[1]
+        sorted_results = sorted(results, key=lambda i: i[1], reverse=True)[:5]
 
-            # sort results and get top 5 based on probability (i.e. i[1]
-            sorted_results = sorted(results, key=lambda i: i[1], reverse=True)[:5]
+        message = '{:.3f} -> {}'.format(sorted_results[0][1], sorted_results[0][0])
+        current_room_type = sorted_results[0][0]  # Room type with highest confidence
 
-            message = '{:.3f} -> {}'.format(sorted_results[0][1], sorted_results[0][0])
-            current_room_type = sorted_results[0][0]  # Room type with highest confidence
+        cv2.putText(frame, message, (50, 50), cv2.FONT_HERSHEY_COMPLEX, fontScale=1, color=(0, 255, 0))
+        cv2.imshow("frame", frame)
 
-            cv2.putText(frame, message, (50, 50), cv2.FONT_HERSHEY_COMPLEX, fontScale=1, color=(0, 255, 0))
-            cv2.imshow("frame", frame)
-
-
-        if is_async_mode:
-            cur_request_id, next_request_id = next_request_id, cur_request_id
-            frame = next_frame
-
-        key = cv2.waitKey(10)
+        key = cv2.waitKey(1)
         if key == 27:
             break
-        if 9 == key:
-            is_async_mode = not is_async_mode
 
         if (time.time() - counter) > 1:  # Wait for 1s
             os.system('aplay wav_files/{}.wav'.format(current_room_type))  # assuming file in current directory
