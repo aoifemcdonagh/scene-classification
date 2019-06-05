@@ -1,0 +1,13 @@
+class,preset
+corridor,corridor
+elevator_lobby,corridor
+office,office
+home_office,office
+office_cubicles,office
+office_building,office
+computer_room,office
+chemistry_lab,office
+conference_room,office
+bathroom,bathroom
+shower,bathroom
+church/indoor,church
