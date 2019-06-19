@@ -1,3 +1,5 @@
 # .gitignore
 photos/
 .idea/
+wav_files/
+
