@@ -17,6 +17,8 @@ def build_argparser():
     parser.add_argument("--csv", help="csv file containing class groupings", type=str, default="groups.csv")
     parser.add_argument("-p", "--preset_file_dir", help="path to dir containing preset audio files",
                         default="wav_files")
+    parser.add_argument("-v", "--voice", help="Use this option to play reverb presets with voice. Default is to use clicks.", 
+			action='store_true', default=False)
     parser.add_argument("-m", "--model", help="Path to an .xml file with a trained model.", type=str,
                         default="googlenet_places365.xml")
     return parser
@@ -46,6 +48,13 @@ if __name__ == "__main__":
     log.basicConfig(format="[ %(levelname)s ] %(message)s", level=log.INFO, stream=sys.stdout)  # Configure logging
 
     args = build_argparser().parse_args()
+
+    # Set the directory path for loading preset files
+    preset_file_dir = ''
+    if args.voice is True:  # Play voice presets if specified
+        preset_file_dir = args.preset_file_dir + '/voice'
+    else:  # if voice presets aren't chosen play clicks
+        preset_file_dir = args.preset_file_dir + '/clicks'
 
     model_xml = args.model  # assuming models in same dir
     model_bin = os.path.splitext(model_xml)[0] + ".bin"
@@ -101,6 +110,7 @@ if __name__ == "__main__":
     counter = time.time()
     previous_group = 'office'
 
+
     while cap.isOpened():
         ret, frame = cap.read()
 
@@ -127,9 +137,9 @@ if __name__ == "__main__":
             group = get_group(current_room_type, args.csv)  # Get preset grouping which matches room class
 
             if group == 'other':  #i.e. not a room class we have a preset for
-                subprocess.Popen(["aplay", "{}/{}.wav".format(args.preset_file_dir, previous_group)])  # Play preset
+                subprocess.Popen(["aplay", "{}/{}.wav".format(preset_file_dir, previous_group)])  # Play preset
             else:  # we have a preset for this class. Play corresponding preset file
-                subprocess.Popen(["aplay", "{}/{}.wav".format(args.preset_file_dir, group)])  # Play preset
+                subprocess.Popen(["aplay", "{}/{}.wav".format(preset_file_dir, group)])  # Play preset
                 previous_group = group
             counter = time.time()
 
