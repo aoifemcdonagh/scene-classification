@@ -19,19 +19,19 @@ The audio files are assumed to be in a directory labelled `wav_files/` in the to
 ```
 scene_classification
 ├──src
-    ├── demo_room_classification.py
-    ├── room_classification_gpu.py
-    ├── test_places.py
-    └── room_demo.sh
+|   ├── demo_room_classification.py
+|   ├── room_classification_gpu.py
+|   ├── test_places.py
+|   └── room_demo.sh
 ├── models
-    ├── deploy_googlenet_places365.prototxt
-    ├── googlenet_places365.caffemodel
-    ├── googlenet_places365.xml
-    ├── googlenet_places365.bin
-    └── googlenet_places365.mapping
+|   ├── deploy_googlenet_places365.prototxt
+|   ├── googlenet_places365.caffemodel
+|   ├── googlenet_places365.xml
+|   ├── googlenet_places365.bin
+|   └── googlenet_places365.mapping
 ├── wav_files
-    ├──voice
-    └──clicks
+|   ├──voice
+|   └──clicks
 ├── categories_places365.txt
 ├── groups.csv
 └── README.md
