@@ -16,7 +16,8 @@ OpenVino | https://software.intel.com/en-us/articles/get-started-with-neural-com
 ## Audio files
 The audio files are assumed to be in a directory labelled `wav_files/` in the top directory of this repository. In the `wav_files/` directory should be two directories, `clicks/` and `voice/`, containing the sample sounds mixed with reverberation presets. File names are assumed to be the room type label with a `.wav` extension. 
 
-.
+```
+scene_classification
 |--src
 	|-- demo_room_classification.py
 	|-- room_classification_gpu.py
@@ -34,3 +35,5 @@ The audio files are assumed to be in a directory labelled `wav_files/` in the to
 |-- categories_places365.txt
 |-- groups.csv
 |-- README.md
+
+```
