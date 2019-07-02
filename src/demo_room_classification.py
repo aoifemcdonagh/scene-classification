@@ -14,13 +14,13 @@ def build_argparser():
     parser = argparse.ArgumentParser()
     parser.add_argument("-i", "--input", help="Input, 'cam' or path to image", required=True, type=str)
     parser.add_argument("-d", "--delay", help="number of seconds delay between inference/clicks", type=int, default=1)
-    parser.add_argument("--csv", help="csv file containing class groupings", type=str, default="groups.csv")
+    parser.add_argument("--csv", help="csv file containing class groupings", type=str, default="../groups.csv")
     parser.add_argument("-p", "--preset_file_dir", help="path to dir containing preset audio files",
-                        default="wav_files")
+                        default="../wav_files")
     parser.add_argument("-v", "--voice", help="Use this option to play reverb presets with voice. Default is to use clicks.", 
 			action='store_true', default=False)
     parser.add_argument("-m", "--model", help="Path to an .xml file with a trained model.", type=str,
-                        default="googlenet_places365.xml")
+                        default="../models/googlenet_places365.xml")
     return parser
 
 
@@ -61,7 +61,7 @@ if __name__ == "__main__":
 
     # Get class info
     # load the class label
-    file_name = 'categories_places365.txt'
+    file_name = '../categories_places365.txt'
     classes = list()
 
     # Get class names

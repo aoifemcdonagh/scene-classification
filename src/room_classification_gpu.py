@@ -13,15 +13,15 @@ if __name__ == "__main__":
     caffe.set_mode_gpu()
 
     # load the class label
-    file_name = 'categories_places365.txt'
+    file_name = '../categories_places365.txt'
     classes = list()
 
     # Get class names
     with open(file_name) as class_file:
         [classes.append(line.strip().split(' ')[0][3:]) for line in class_file]
 
-    prototxt= 'deploy_googlenet_places365.prototxt'
-    caffemodel= 'googlenet_places365.caffemodel'
+    prototxt= '../models/deploy_googlenet_places365.prototxt'
+    caffemodel= '../models/googlenet_places365.caffemodel'
 
     net = caffe.Net(prototxt, caffemodel, caffe.TEST)
 
