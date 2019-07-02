@@ -2,4 +2,8 @@
 photos/
 .idea/
 wav_files/
+test_sonification.py
+*.MOV
+*.mov
+*.mp4
 
