@@ -11,7 +11,7 @@ CuDNN | https://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html
 caffe 1.0.0 | https://github.com/adeelz92/Install-Caffe-on-Ubuntu-16.04-Python-3 Follow steps carefully since they depend on your CUDA, CuDNN and python versions
 numpy 1.14.3+ |
 OpenCV | Install using pip3, not during OpenVino install.
-OpenVino | https://software.intel.com/en-us/articles/get-started-with-neural-compute-stick Note untick OpenCV
+OpenVino 2019 R1.1| https://software.intel.com/en-us/articles/get-started-with-neural-compute-stick Note untick OpenCV
 
 ## Audio files
 The audio files are assumed to be in a directory labelled `wav_files/` in the top directory of this repository. In the `wav_files/` directory should be two directories, `clicks/` and `voice/`, containing the sample sounds mixed with reverberation presets. File names are assumed to be the room type label with a `.wav` extension. 
