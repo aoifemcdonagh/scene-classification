@@ -13,15 +13,15 @@ if __name__ == "__main__":
     caffe.set_mode_gpu()
 
     # load the class label
-    file_name = '../places365/categories_places365.txt'
+    file_name = 'categories_places365.txt'
     classes = list()
 
     # Get class names
     with open(file_name) as class_file:
         [classes.append(line.strip().split(' ')[0][3:]) for line in class_file]
 
-    prototxt= '/home/aoife/projects/places365/deploy_googlenet_places365.prototxt'
-    caffemodel= '/home/aoife/projects/places365/googlenet_places365.caffemodel'
+    prototxt= 'deploy_googlenet_places365.prototxt'
+    caffemodel= 'googlenet_places365.caffemodel'
 
     net = caffe.Net(prototxt, caffemodel, caffe.TEST)
 
@@ -43,7 +43,7 @@ if __name__ == "__main__":
     window_frame = cv2.namedWindow('frame', cv2.WINDOW_NORMAL)
 
     while cap.isOpened():
-        for i in range(0, 10):
+        for i in range(0, 5):
             ret, frame = cap.read()
 
         transformed_image = transformer.preprocess('data', frame)
