@@ -5,8 +5,6 @@ import os
 os.environ['GLOG_minloglevel'] = '2'  # Suppressing caffe printouts of network initialisation
 import caffe
 import numpy as np
-import matplotlib.pyplot as plt
-import cv2
 
 caffe.set_mode_gpu()
 
