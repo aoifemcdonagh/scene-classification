@@ -17,7 +17,7 @@ OpenVino 2019 R1.1| https://software.intel.com/en-us/articles/get-started-with-n
 ## Audio files
 The audio files are assumed to be in a directory labelled `wav_files/` in the top directory of this repository. In the `wav_files/` directory should be two directories, `clicks/` and `voice/`, containing the sample sounds mixed with reverberation presets. File names are assumed to be the room type label with a `.wav` extension. 
 
-```
+
 scene_classification
 ├──scene-classification
 |   ├── ncs_classify.py
@@ -38,13 +38,13 @@ scene_classification
 ├── requirements.txt
 └── README.md
 
-```
+
 
 ## Usage
 
 #### ncs_classify.py
 Continuously classifies scene type from a video/camera feed. An Intel Neural Compute Stick is used to perform inference.
-**Arguments**
+**Arguments**:
 `-i` `--input` 'cam' or path to a video file
 `-d` `--delay` number of seconds delay between inference passes and sound playback
 `--csv` CSV file containing class groupings. Default is groups.txt
@@ -54,11 +54,13 @@ Continuously classifies scene type from a video/camera feed. An Intel Neural Com
 
 #### gpu_classify.py 
 Continuously classifies scene type from a video/camera feed. A GPU is used to perform inference. Input is either a path to a video file or 'cam' to specify camera input.
-Example execution: `python3 gpu_classify.py cam`
+Example execution: 
+`python3 gpu_classify.py cam`
 
 #### test_places.py
 Runs inference on an input image. Prints top 5 results from inference.
-Example execution: `python3 test_places.py sampleimage.jpg`
+Example execution: 
+`python3 test_places.py sampleimage.jpg`
 
 #### demo_ncs.sh
 Shell script to run ncs_classify.py
