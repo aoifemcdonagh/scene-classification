@@ -30,15 +30,15 @@ scene_classification
 |   ├── googlenet_places365.xml
 |   ├── googlenet_places365.bin
 |   └── googlenet_places365.mapping
-**├── wav_files**
-**|   ├──voice**
-**|   └──clicks**
+├── wav_files
+|   ├──voice
+|   └──clicks
 ├── categories_places365.txt
 ├── groups.csv
 ├── requirements.txt
 └── README.md
-"""
 
+"""
 
 ## Usage
 
